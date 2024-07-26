@@ -1,81 +1,17 @@
+
+
 import React, { useState } from 'react';
 import Navbar from './Navbar';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import Send from '@material-ui/icons/Send';
-import Modal from '@material-ui/core/Modal';
-
-const useStyles = makeStyles((theme) => ({
-  contactContainer: {
-    height: '100vh',
-  },
-  heading: {
-    color: 'tomato',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    marginBottom: '1rem',
-  },
-  form: {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    position: 'absolute',
-  },
-  input: {
-    color: '#fff',
-  },
-  button: {
-    marginTop: '1rem',
-    color: 'tomato',
-    borderColor: 'tan',
-  },
-  field: {
-    margin: '1rem 0rem',
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
-
-const InputField = withStyles({
-  root: {
-    '& label.Mui-focused': {
-      color: 'tomato',
-    },
-    '& label': {
-      color: 'tan',
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: 'tan',
-      },
-      '&:hover fieldset': {
-        borderColor: 'tan',
-      },
-      '&.Mui-focused fieldset': {
-        color: '#fff',
-        borderColor: 'tan',
-      },
-    },
-  },
-})(TextField);
+import { Send } from '@material-ui/icons';
+import { Dialog } from '@material-ui/core';
 
 const Contact = () => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [serverState, setServerState] = useState({
+    submitting: false,
+    status: null,
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -84,11 +20,6 @@ const Contact = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const [serverState, setServerState] = useState({
-    submitting: false,
-    status: null,
-  });
 
   const handleServerResponse = (ok, msg, form) => {
     setServerState({
@@ -99,6 +30,7 @@ const Contact = () => {
       form.reset();
     }
   };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -119,72 +51,60 @@ const Contact = () => {
   return (
     <>
       <Navbar />
-      <Box component="div" className={classes.contactContainer}>
-        <Grid container justify="center">
-          <Box component="form" className={classes.form}>
-            <Typography variant="h5" className={classes.heading}>
-              Get in touch
-            </Typography>
-
-            <form onSubmit={handleOnSubmit}>
-              <InputField
-                fullWidth={true}
-                label="Name"
-                variant="outlined"
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
+          <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">Get in Touch</h2>
+          <form onSubmit={handleOnSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700">Name</label>
+              <input
+                id="name"
+                type="text"
                 name="name"
-                inputProps={{ className: classes.input }}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
               />
-              <InputField
-                fullWidth={true}
-                label="Email"
-                variant="outlined"
+            </div>
+            <div>
+              <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+              <input
+                id="email"
+                type="email"
                 name="email"
-                inputProps={{ className: classes.input }}
-                className={classes.field}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
               />
-              <InputField
-                fullWidth={true}
-                label="Message"
-                variant="outlined"
+            </div>
+            <div>
+              <label htmlFor="message" className="block mb-1 text-sm font-medium text-gray-700">Message</label>
+              <textarea
+                id="message"
                 name="message"
-                multiline
-                rows={4}
-                inputProps={{ className: classes.input }}
-              />
-
-              <Button
-                type="submit"
-                variant="outlined"
-                fullWidth={true}
-                endIcon={<Send />}
-                className={classes.button}
-                onClick={handleOpen}
-              >
-                Contact Me
-              </Button>
-
-              {/* popup window */}
-              {serverState.status && (
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  className={classes.modal}
-                >
-                  <div className={classes.paper}>
-                    <h1
-                      className={!serverState.status.ok ? 'errorMsg' : ''}
-                      style={{ color: 'tomato', textAlign: 'center' }}
-                    >
-                      {' '}
-                      {serverState.status.msg}
-                    </h1>
-                  </div>
-                </Modal>
-              )}
-            </form>
-          </Box>
-        </Grid>
-      </Box>
+                rows="4"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="flex items-center justify-center w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={handleOpen}
+            >
+              Contact Me
+              <Send className="ml-2" />
+            </button>
+          </form>
+          {serverState.status && (
+            <Dialog open={open} onClose={handleClose}>
+              <div className="p-8 bg-white rounded shadow-md">
+                <h1 className={`${!serverState.status.ok ? 'text-red-600' : 'text-green-600'} text-center`}>
+                  {serverState.status.msg}
+                </h1>
+              </div>
+            </Dialog>
+          )}
+        </div>
+      </div>
     </>
   );
 };

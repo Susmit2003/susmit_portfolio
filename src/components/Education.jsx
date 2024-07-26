@@ -1,185 +1,57 @@
+
 import React from 'react';
 import Navbar from './Navbar';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Send } from '@material-ui/icons';
+import { Dialog } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  timeLine: {
-    position: 'relative',
-    padding: '1rem',
-    margin: 'o auto',
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      height: '100%',
-      border: '1px solid tan',
-      right: '40px',
-      top: 0,
-    },
-    '&:after': {
-      content: "''",
-      display: 'table',
-      clear: 'both',
-    },
-    [theme.breakpoints.up('md')]: {
-      padding: '2rem',
-      '&:before': {
-        left: 'calc(50% - 1px)',
-        right: 'auto',
-      },
-    },
-  },
-  timeLineItem: {
-    padding: '1rem',
-    borderBottom: '2px solid tan',
-    position: 'relative',
-    margin: '1rem 3rem 1rem 1rem',
-    clear: 'both',
-    '&:after': {
-      content: "''",
-      position: 'absolute',
-    },
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      right: '-0.625rem',
-      top: 'calc(50% - 5px)',
-      borderStyle: 'solid',
-      borderColor: 'tomato tomato transparent transparent',
-      borderWidth: '0.625rem',
-      transform: 'rotate(45deg)',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '44%',
-      margin: '1rem',
-      '&:nth-of-type(2n)': {
-        float: 'right',
-        margin: '1rem',
-        borderColor: 'tan',
-      },
-      '&:nth-of-type(2n):before': {
-        right: 'auto',
-        left: '-0.625rem',
-        borderColor: 'transparent transparent tomato tomato',
-      },
-    },
-  },
-  timeLineYear: {
-    textAlign: 'center',
-    maxWidth: '9.375rem',
-    margin: '0 3rem 0 auto',
-    fontSize: '1.2rem',
-    color: '#fff',
-    background: 'tomato',
-    lineHeight: 1,
-    padding: '0.5rem 1rem',
-    '&:before': {
-      display: 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      textAlign: 'center',
-      margin: '0 auto',
-      '&:nth-of-type(2n)': {
-        float: 'none',
-        margin: '0 auto',
-      },
-      '&:nth-of-type(2n):before': {
-        display: 'none',
-      },
-    },
-  },
-  heading: {
-    color: 'tomato',
-    padding: '3rem 0',
-    textTransform: 'uppercase',
-  },
-  subHeading: {
-    color: '#fff',
-    padding: 0,
-    textTransform: 'uppercase',
-  },
-  body1: {
-    color: 'tomato',
-  },
-  subtitle1: {
-    color: 'tan',
-  },
-}));
-
-// educations
 const educations = [
   {
     id: 1,
     year: ' - Present',
-    universityName: 'Chitkara University-Himachal pradesh ',
+    universityName: 'Chitkara University-Himachal Pradesh ',
     department: 'Bachelor of Technology in Computer Science & Engineering',
     description: '',
   },
   {
     id: 2,
     year: ' -2021 ',
-    universityName: 'Krishna Kanta Handiqui junior college,Assam',
+    universityName: 'Krishna Kanta Handiqui Junior College, Assam',
     department: 'Higher Secondary School',
     description: '',
   },
   {
     id: 3,
     year: ' 2019 ',
-    universityName: 'Bangaon Hs school,Assam',
-    department: 'Secondary School ',
+    universityName: 'Bangaon HS School, Assam',
+    department: 'Secondary School',
     description: '',
   },
 ];
 
 const Education = () => {
-  const classes = useStyles();
   return (
     <>
       <Navbar />
-      <Box component="header">
-        <Typography variant="h4" align="center" className={classes.heading}>
-          Education
-        </Typography>
-        <Box component="div" className={classes.timeLine}>
-          {/* start */}
-          {educations.map((education) => (
-            <>
-              <Typography
-                variant="h2"
-                className={`${classes.timeLineYear} ${classes.timeLineItem}`}
-              >
-                {education.year}
-              </Typography>
-
-              <Box component="div" className={classes.timeLineItem}>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  className={classes.subHeading}
-                >
-                  {education.universityName}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  align="center"
-                  className={classes.body1}
-                >
-                  {education.department}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  align="center"
-                  className={classes.subtitle1}
-                >
-                  {education.description}
-                </Typography>
-              </Box>
-            </>
-          ))}
-          {/* end */}
-        </Box>
-      </Box>
+      <header className="py-12 bg-gray-900">
+        <div className="container mx-auto">
+          <h2 className="mb-12 text-4xl font-bold text-center text-red-500 uppercase">Education</h2>
+          <div className="relative px-6 py-10 bg-white shadow-lg rounded-lg md:p-16">
+            {/* Timeline line */}
+            <div className="absolute inset-0 w-1 bg-gray-300 md:left-1/2"></div>
+            {educations.map((education, index) => (
+              <div key={education.id} className={`mb-8 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+                <div className={`relative z-10 p-6 bg-gray-800 rounded-lg shadow-lg ${index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'}`}>
+                  <span className="absolute top-0 left-1/2 transform -translate-y-1/2 w-6 h-6 bg-gray-800 rounded-full md:left-auto md:right-1/2"></span>
+                  <h3 className="mb-2 text-lg font-bold text-white md:text-2xl">{education.universityName}</h3>
+                  <p className="mb-2 text-sm text-gray-400 md:text-lg">{education.department}</p>
+                  <p className="text-sm text-gray-500 md:text-lg">{education.description}</p>
+                  <p className="mt-2 text-sm text-red-500 md:text-lg">{education.year}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </header>
     </>
   );
 };

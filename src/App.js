@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Route } from 'react-router-dom';
 import Index from './components/index';
 import Resume from './components/Resume';
-import Portfolio from './components/Portfolio';
 import Contacts from './components/Contacts';
 import Skills from './components/Skills';
 import Education from './components/Education';
@@ -16,7 +15,7 @@ function App() {
     <>
       <CssBaseline />
       <Route exact path="/" component={Index} />
-      <Route path="/portfolio" component={Portfolio} />
+     
       <Route path="/Education" component={Education} />
       <Route path="/Skills" component={Skills} />
       <Route path="/Resume" component={Resume} />
