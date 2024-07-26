@@ -51,7 +51,7 @@ const Contact = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-gray-98">
         <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
           <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">Get in Touch</h2>
           <form onSubmit={handleOnSubmit} className="space-y-6">
