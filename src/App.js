@@ -22,7 +22,7 @@ function App() {
       <Route path="/Startup" component={Startup} />
 
       <Route path="/contacts" component={Contacts} />
-      <Route path=" HomeContract" component={ HomeContract} />
+      <Route path="/HomeContract" component={ HomeContract} />
     </>
   );
 }

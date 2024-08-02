@@ -31,22 +31,22 @@ const Contact = () => {
     }
   };
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    setServerState({ submitting: true });
-    axios({
-      method: 'post',
-      url: 'https://formspree.io/f/xgepkqol',
-      data: new FormData(form),
-    })
-      .then((r) => {
-        handleServerResponse(true, 'Thanks!', form);
-      })
-      .catch((r) => {
-        handleServerResponse(false, r.response.data.error, form);
-      });
-  };
+  // const handleOnSubmit = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   setServerState({ submitting: true });
+  //   axios({
+  //     method: 'post',
+  //     url: 'https://formspree.io/f/xgepkqol', 
+  //     data: new FormData(form),
+  //   })
+  //     .then((r) => {
+  //       handleServerResponse(true, 'Thanks!', form);
+  //     })
+  //     .catch((r) => {
+  //       handleServerResponse(false, r.response.data.error, form);
+  //     });
+  // };
 
   return (
     <>
@@ -54,7 +54,9 @@ const Contact = () => {
       <div className="flex items-center justify-center min-h-screen bg-gray-98">
         <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
           <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">Get in Touch</h2>
-          <form onSubmit={handleOnSubmit} className="space-y-6">
+          {/* <form onSubmit={handleOnSubmit} className="space-y-6"> */}
+          <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="40e62faa-cd24-4403-a1bc-2ceea6c22f87"></input>
             <div>
               <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700">Name</label>
               <input
@@ -88,7 +90,7 @@ const Contact = () => {
             <button
               type="submit"
               className="flex items-center justify-center w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={handleOpen}
+              // onClick={handleOpen}
             >
               Contact Me
               <Send className="ml-2" />

@@ -1,48 +1,13 @@
+
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  ListItem,
-  IconButton,
-  ListItemText,
-  Avatar,
-  Divider,
-  List,
-  Typography,
-  Box,
-  ListItemIcon,
-} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import myImage from '../image/myImage.jpg';
+import Footer from './Footer';
+import HomeContract from './HomeContract';
 import { AssignmentInd, Home, Apps, ContactMail } from '@material-ui/icons';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
-import myImage from '../image/myImage.jpg';
-import { makeStyles } from '@material-ui/core/styles';
-import SliderOpen from '@material-ui/core/Drawer';
-import { Link } from 'react-router-dom';
-import Footer from './Footer';
 import BuildIcon from '@material-ui/icons/Build';
 import SchoolIcon from '@material-ui/icons/School';
-
-// CSS for sidebar and myImage
-const useStyles = makeStyles((theme) => ({
-  menuSlide: {
-    width: 250,
-    background:
-      'linear-gradient(90deg,rgba(2, 0, 36, 1) 26%,rgba(79, 4, 27, 1) 100%,rgba(2, 0, 36, 1) 100%)',
-    height: '100%',
-  },
-  myImage: {
-    display: 'block',
-    margin: '0.5rem auto',
-    width: theme.spacing(14),
-    height: theme.spacing(14),
-  },
-  listText: {
-    color: '#EAECEE',
-  },
-  listIcon: {
-    color: 'tan',
-  },
-}));
 
 const menuItems = [
   {
@@ -50,29 +15,19 @@ const menuItems = [
     listText: 'Home',
     listPath: '/',
   },
-  // {
-  //   listIcon: <AssignmentInd />,
-  //   listText: 'Resume',
-  //   listPath: '/resume',
-  // },
-  // {
-  //   listIcon: <Apps />,
-  //   listText: 'Portfolio',
-  //   listPath: '/portfolio',
-  // },
-   {
-     listIcon: <BuildIcon />,
-     listText: 'Skills',
-     listPath: '/skills',
-   },
-   {
-     listIcon: <SchoolIcon />,
-    listText: 'Education',
-     listPath: '/education',
-   },
-   {
+  {
+    listIcon: <BuildIcon />,
+    listText: 'Skills',
+    listPath: '/skills',
+  },
+  {
     listIcon: <SchoolIcon />,
-   listText: 'MY Patent',
+    listText: 'Education',
+    listPath: '/education',
+  },
+  {
+    listIcon: <SchoolIcon />,
+    listText: 'MY Patent',
     listPath: '/startup',
   },
   {
@@ -83,67 +38,69 @@ const menuItems = [
 ];
 
 function Navbar() {
-  const classes = useStyles();
-  const [slider, Setslider] = useState({
-    right: false,
-  });
-  const toggleSlide = (toggler, open) => () => {
-    Setslider({ ...slider, [toggler]: open });
+  const [slider, setSlider] = useState(false);
+
+  const toggleSlide = (open) => () => {
+    setSlider(open);
   };
-  const sideList = (slider) => (
-    <Box
-      component="div"
-      className={classes.menuSlide}
-      onClick={toggleSlide(slider, false)}
+
+  const sideList = () => (
+    <div
+      className="w-64 h-full bg-gradient-to-r from-black to-red-900 p-4"
+      onClick={toggleSlide(false)}
     >
-      <Avatar className={classes.myImage} src={myImage} alt="Susmit Talukdar" />
-      <Divider />
-      <List>
+      <img
+        className="block mx-auto my-2 w-14 h-14 rounded-full"
+        src={myImage}
+        alt="Susmit Talukdar"
+      />
+      <div className="border-t border-gray-200 my-4"></div>
+      <ul>
         {menuItems.map((item, key) => (
-          <ListItem button key={key} component={Link} to={item.listPath}>
-            <ListItemIcon className={classes.listIcon}>
-              {item.listIcon}
-            </ListItemIcon>
-            <ListItemText className={classes.listText}>
-              {item.listText}
-            </ListItemText>
-          </ListItem>
+          <li key={key}>
+            <Link
+              to={item.listPath}
+              className="flex items-center text-gray-300 hover:text-white py-2"
+            >
+              <span className="text-tan">{item.listIcon}</span>
+              <span className="ml-4">{item.listText}</span>
+            </Link>
+          </li>
         ))}
-      </List>
-    </Box>
+      </ul>
+    </div>
   );
 
   return (
     <>
-      <Box component="nav">
-        <AppBar position="static" style={{ background: '#222' }}>
-          <Toolbar>
-            <IconButton onClick={toggleSlide('right', true)}>
-              <ClearAllIcon style={{ background: '#E74C3C' }} />
-            </IconButton>
-            <Typography variant="h5">
-              <a
-                href="/"
-                style={{
-                  color: 'white',
-                  fontSize: '1.2rem',
-                  textDecoration: 'none',
-                }}
-              >
-                Sumit Talukdar
+      <nav>
+        
+        <div className="bg-gray-900">
+          <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+            <button onClick={toggleSlide(true)}>
+              <ClearAllIcon className="text-red-500" />
+            </button>
+            <h1 className="text-white text-xl">
+              <a href="/" className="text-white no-underline">
+                Susmit Talukdar
               </a>
-            </Typography>
-            <SliderOpen
-              anchor="left"
-              open={slider.right}
-              onClose={toggleSlide('right', false)}
-            >
-              {sideList('right')}
+            </h1>
+            <HomeContract />
+          </div>
+        </div>
+        {slider && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex">
+            <div className="relative bg-white w-64 h-full">
+              {sideList()}
               <Footer />
-            </SliderOpen>
-          </Toolbar>
-        </AppBar>
-      </Box>
+            </div>
+            <div
+              className="flex-grow"
+              onClick={toggleSlide(false)}
+            ></div>
+          </div>
+        )}
+      </nav>
     </>
   );
 }

@@ -1,59 +1,34 @@
+
 import React from 'react';
-import { Typography, Avatar, Grid, Box } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import avatar from '../image/myImage.jpg';
 import Typed from 'react-typed';
-import { makeStyles } from '@material-ui/core/styles';
-import HomeContract from './HomeContract';
-
-//css style
-const useStyles = makeStyles((theme) => ({
-  avater: {
-    width: theme.spacing(25),
-    height: theme.spacing(25),
-    margin: theme.spacing(1),
-  },
-  title: {
-    color: 'tomato',
-  },
-  subtitle: {
-    color: 'tan',
-    marginBottom: '3rem',
-  },
-  typedContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100vw',
-    textAlign: 'center',
-    zIndex: 1,
-  },
-}));
 
 const Header = () => {
-  const classes = useStyles();
-
   return (
-    <Box className={classes.typedContainer}>
-      <Grid container justify="center">
-        <Avatar className={classes.avater} src={avatar} alt="Susmit Talukdar" />
-      </Grid>
-      <Typography className={classes.title} variant="h3">
-        <Typed strings={['Susmit Talukdar']} typeSpeed={70} />
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center z-10">
+      <div className="flex justify-center">
+        <img 
+          className="w-64 h-64 m-4 rounded-full"
+          src={avatar} 
+          alt="Susmit Talukdar"
+        />
+      </div>
+      <Typography className="text-tomato" variant="h3">
+        <Typed className='text-white'strings={['Susmit Talukdar']} typeSpeed={70} />
       </Typography>
       <br />
-      <Typography className={classes.subtitle} variant="h5">
-        <Typed
+      <Typography className="text-tan mb-12" variant="h5">
+        <Typed className='text-white'
           strings={[
-            'Bachelor of Technology in Computer Science & Engineering'
+            'Bachelor of Engineering in Computer Science'
           ]}
           typeSpeed={70}
           backSpeed={60}
           loop
         />
-       
       </Typography>
-    </Box>
+    </div>
   );
 };
 

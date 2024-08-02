@@ -1,26 +1,17 @@
+
 import React from 'react';
 import Header from './Header';
 import Navbar from './Navbar';
-import '../App.css';
 import Particles from 'react-particles-js';
-import { makeStyles } from '@material-ui/core/styles';
+import '../App.css'; 
 
-// style
-const useStyles = makeStyles({
-  Particles: {
-    position: 'fixed',
-    opacity: '0.3',
-  },
-});
 function Index() {
-  const classes = useStyles();
-
   return (
     <>
       <Navbar />
       <Header />
       <Particles
-        canvasClassName={classes.Particles}
+        canvasClassName="fixed opacity-30"
         params={{
           particles: {
             number: {
@@ -60,7 +51,6 @@ function Index() {
           },
         }}
       />
-      {/* <Particles /> */}
     </>
   );
 }
